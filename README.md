@@ -10,7 +10,7 @@ Launches a video with subway surf gameplay in nvim
 
 # Install
 ## Requirements
-For fll install methods you need to have nvim, python3 and  [pynvim](https://github.com/neovim/pynvim)
+For all install methods you need to have nvim, python3 and  [pynvim](https://github.com/neovim/pynvim)
 
 ## Manual install
 1. Clone this repo
@@ -20,3 +20,34 @@ For fll install methods you need to have nvim, python3 and  [pynvim](https://git
 4. Run ```:UpdateRemotePlugins``` in nvim
 5. Restart nvim
 
+## Install using [lazy](https://github.com/folke/lazy.nvim)
+1. Add this lines in your lazy section of init.lua:
+```lua
+{
+  "INoorik/ThisCodeIsSoBoring.nvim",
+    keys = {
+    },
+    config = function()
+      vim.api.nvim_eval('UpdateRemotePlugins')
+      vim.api.nvim_eval('!pip install --user -r requirements.txt')
+    end,
+}
+```
+3. Run ```:Lazy install``` in nvim
+4. Restart nvim
+
+## Install using [packer.nvim](https://github.com/wbthomason/packer.nvim)
+1. Add this lines in your packer section
+```lua
+use { 'INoorik/ThisCodeIsSoBoring.nvim', run={'pip install --user -r requirements.txt', ':UpdateRemotePlugins'}}
+```
+2. run ```:PackerInstall``` in nvim
+3. Restart nvim
+
+## Install using [vim-plug](https://github.com/junegunn/vim-plug)
+1. Add this lines in your vim-plug section
+```vim
+Plug 'INoorik/ThisCodeIsSoBoring.nvim', {'do': ':UpdateRemotePlugins \|!pip install --user -r requirements.txt'}
+```
+2. Run ```:PlugInstall``` in nvim
+3. Restart nvim
