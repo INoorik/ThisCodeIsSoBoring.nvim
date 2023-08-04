@@ -11,6 +11,8 @@ class Player:
         self.video = video
         self.renderer = ImageRenderer()
     def play(self):
+        self.nvim.funcs.nvim_set_option_value('number', False, {'scope': 'local', 'win': self.window})  
+        self.nvim.funcs.nvim_set_option_value('relativenumber', False, {'scope': 'local', 'win': self.window})  
         success, image = self.video.read()
         image = Image.fromarray(image)
         while success and self.window.valid:
@@ -18,5 +20,6 @@ class Player:
             sampling_period = 1/self.video.get(cv2.CAP_PROP_FPS)
             sleep(sampling_period)
     def _resize_image_to_fit_window(self, image):
-        size = (self.window.width, self.window.height//2)
-        return ImageOps.pad(image, size)
+        graphic_size = (self.window.width-1, self.window.height*2)
+        symbol_size = (self.window.width-1, self.window.height)
+        return ImageOps.pad(image, graphic_size).resize(symbol_size)
