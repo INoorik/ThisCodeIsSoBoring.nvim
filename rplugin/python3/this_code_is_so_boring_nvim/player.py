@@ -15,10 +15,12 @@ class Player:
         self.nvim.funcs.nvim_set_option_value('relativenumber', False, {'scope': 'local', 'win': self.window})  
         success, image = self.video.read()
         image = Image.fromarray(image)
+        ascii_image = self.renderer.render(self._resize_image_to_fit_window(image))
         while success and self.window.valid:
-            self.window.buffer[:] = self.renderer.render(self._resize_image_to_fit_window(image))
+            self.window.buffer[:] = ascii_image 
             success, image = self.video.read()
             image = Image.fromarray(image)
+            ascii_image = self.renderer.render(self._resize_image_to_fit_window(image))
             sampling_period = 1/self.video.get(cv2.CAP_PROP_FPS)
             sleep(sampling_period)
     def _resize_image_to_fit_window(self, image):
