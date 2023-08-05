@@ -1,6 +1,8 @@
 # This code is so boring.nvim
 Launches a video with subway surf gameplay in nvim
 
+![Снимок экрана от 2023-08-05 09-45-33](https://github.com/INoorik/ThisCodeIsSoBoring.nvim/assets/86825857/11f041d9-d4ef-4b9d-80d0-8de624567ffe)
+
 # Usage
 ## NVim commands
 - ```:ThisCodeIsSoBoring``` - start default subway surf gameplay video in the current window. 
