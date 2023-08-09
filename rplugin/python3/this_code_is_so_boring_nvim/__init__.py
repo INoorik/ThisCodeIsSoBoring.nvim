@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+from pathlib import Path
 import pynvim
 from .player import Player
 import cv2
@@ -10,11 +12,16 @@ class Test:
     @pynvim.command('ThisCodeIsSoBoring', range='', nargs='?', sync=True)
     def play(self, args, range):
         if len(args) == 0:
-            video = cv2.VideoCapture(self.default_video)
+            video = cv2.VideoCapture(self._get_absolute_path(self.default_video))
         else:
-            video = cv2.VideoCapture(args[0])
+            video = cv2.VideoCapture(self._get_absolute_path(args[0]))
         player = Player(self.nvim, self.nvim.current.window, video)
         self.nvim.async_call(player.play)
     @pynvim.command('SetThisCodeIsSoBoringVideo', range='', nargs=1, sync=True)
     def set_default(self, args, range):
         self.default_video = args[0]
+    def _get_absolute_path(self, path):
+        url = urlparse(path)
+        if url.netloc:
+            return url.geturl()
+        return str(Path(path).absolute())
