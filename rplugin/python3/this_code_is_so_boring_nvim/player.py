@@ -13,6 +13,7 @@ class Player:
     def play(self):
         self.nvim.funcs.nvim_set_option_value('number', False, {'scope': 'local', 'win': self.window})  
         self.nvim.funcs.nvim_set_option_value('relativenumber', False, {'scope': 'local', 'win': self.window})  
+        self.nvim.funcs.nvim_set_option_value('buftype', 'nofile', {'scope': 'local', 'win': self.window})  
         success, image = self.video.read()
         image = Image.fromarray(image)
         ascii_image = self.renderer.render(self._resize_image_to_fit_window(image))
